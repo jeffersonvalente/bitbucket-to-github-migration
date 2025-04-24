@@ -1,89 +1,59 @@
+# Case Técnico — Automação de Migração de Repositórios do Bitbucket para o GitHub
 
-# Bitbucket to GitHub Migration — Automação de Migração de Repositórios
+Este case documenta a criação de um script em Python para automatizar a migração de repositórios do Bitbucket para o GitHub — com preservação completa de histórico de commits, branches e nomenclatura original.
 
-Esse projeto automatiza a migração de repositórios do Bitbucket para o GitHub, com foco em segurança, rastreabilidade e escalabilidade.  
-Resolve dores comuns enfrentadas por equipes que precisam reorganizar projetos ou integrar times em novos ambientes, sem perder tempo com tarefas repetitivas.
+A solução nasceu de um cenário crítico de transição de plataforma, onde migrar manualmente mais de 270 repositórios era inviável técnica e operacionalmente — tanto pelo volume, quanto pelo prazo e risco de perda de rastreabilidade.
 
----
+## Objetivo
 
-## O que esse script faz
+Evitar perda de histórico, inconsistência entre ambientes e erros humanos durante uma migração em larga escala, garantindo:
 
-- Busca todos os repositórios do Bitbucket (com paginação)
-- Aplica filtro por palavra-chave no nome ou slug
-- Cria repositórios privados no GitHub
-- Clona via SSH e faz push de cada repositório
-- Usa configuração parametrizada via `config.py`
+- Preservação de branches, commits e nomes originais
+- Capacidade de filtrar e priorizar o que seria migrado
+- Migração segura via SSH e repositórios privados
+- Execução confiável, rastreável e documentada
 
----
+## Desafios técnicos
 
-## Pré-requisitos
+Durante o desenvolvimento, enfrentei desafios importantes:
 
-- Python 3.x
-- Git instalado
-- GitHub CLI (`gh`) configurado: https://cli.github.com/manual/installation
-- App Password do Bitbucket com permissão de leitura: https://bitbucket.org/account/settings/app-passwords/
+- A API do Bitbucket exigia paginação para lidar com grandes volumes
+- O Bitbucket possui o conceito de "projetos", inexistente no GitHub — o que exigiu adaptação lógica para recriar estrutura organizacional sem perdas
+- Controle de acesso via App Password e SSH para garantir segurança na transferência
+- Existência de repositórios com naming inconsistente ou que não deveriam ser migrados — resolvido com filtros por prefixo/sufixo configuráveis
 
-Instale a dependência:
+## Decisões técnicas
 
-```bash
-pip install requests
-```
+- A linguagem escolhida foi Python, pela clareza, adaptabilidade e familiaridade com a stack do time
+- A CLI oficial do GitHub (`gh`) foi usada para automatizar a criação de repositórios privados, respeitando permissões
+- A estrutura do script foi pensada para permitir manutenção futura por outros devs, com configuração simples via `config.py`
 
----
+## Resultado entregue
 
-## Como configurar
+- Script funcional, validado e aplicado em ambiente real
+- Capaz de clonar qualquer repositório Bitbucket, preservar histórico e publicar automaticamente no GitHub
+- Comportamento controlado por filtros — permitindo selecionar só os repositórios desejados
+- Migração segura, 100% rastreável e replicável
 
-1. Edite o arquivo `config.py`:
+O feedback do time foi imediato: a automação reduziu drasticamente o tempo de execução, eliminou erros manuais e trouxe previsibilidade ao processo de transição.
 
-```python
-GITHUB_USERNAME = 'seu_usuario_github'
-BITBUCKET_USERNAME = 'seu_usuario_bitbucket'
-BITBUCKET_APP_PASSWORD = 'seu_app_password_bitbucket'
-WORKSPACE = 'seu_workspace'
-FILTER_KEYWORD = 'sua_palavra_chave'
-```
+## Aprendizados
 
-2. Rode o script:
+- A manipulação de estruturas como “projetos” e nomes inconsistentes exigiu decisões práticas e tratamento lógico refinado
+- A entrega demonstrou o impacto direto de uma automação sob medida em cenários de urgência, escala e criticidade operacional
 
-```bash
-python migrar_repos.py
-```
+Se eu fosse refazer hoje, com base no que aprendi durante e após a entrega:
 
----
+- Otimizaria a execução com paralelismo controlado para acelerar a migração em ambientes com centenas de repositórios
+- Adicionaria geração de logs persistentes para rastreabilidade pós-migração
+- Criaria testes unitários básicos para as funções de autenticação, filtro e paginação
+- Melhoraria a UX do terminal com feedback visual mais estruturado, como progresso e sumário ao final
+- Validaria pré-requisitos como existência do `gh` CLI e conectividade com as APIs antes da execução
 
-## Como funciona
+## Repositório com código
 
-```plaintext
-1. Acessa a API do Bitbucket e lista os repositórios
-2. Aplica o filtro configurado
-3. Cria repositórios no GitHub com nome equivalente
-4. Clona do Bitbucket e envia pro GitHub via SSH
-```
-
----
-
-## Casos de uso
-
-- Integração de times em nova organização GitHub
-- Reorganização de projetos dispersos entre plataformas
-- Padronização de estrutura de repositórios
-
----
-
-## Por que usar?
-
-Automatizar essa migração poupa tempo, reduz erro humano e mantém rastreabilidade.  
-Serve tanto pra times pequenos reorganizando ambientes, quanto pra estruturas maiores com centenas de repositórios.
-
----
-
-## Contribuições
-
-Sugestões são bem-vindas.  
-Esse projeto foi feito pra ser adaptável — se quiser melhorar algo, mande um pull request.
-
----
+[https://github.com/jeffersonvalente/bitbucket-to-github-migration](https://github.com/jeffersonvalente/bitbucket-to-github-migration)
 
 ## Contato
 
-LinkedIn: https://www.linkedin.com/in/jefferson-hoy-valente/
+[LinkedIn](https://www.linkedin.com/in/jefferson-hoy-valente/)
