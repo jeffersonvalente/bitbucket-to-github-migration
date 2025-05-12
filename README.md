@@ -24,8 +24,8 @@ Durante o desenvolvimento, enfrentei desafios importantes:
 
 ## Decisões técnicas
 
-- A linguagem escolhida foi Python, pela clareza, adaptabilidade e familiaridade com a stack do time
-- A CLI oficial do GitHub (`gh`) foi usada para automatizar a criação de repositórios privados, respeitando permissões
+- A linguagem escolhida foi **Python**, pela clareza, adaptabilidade e familiaridade com a stack do time
+- A **CLI oficial do GitHub (gh)** foi usada para automatizar a criação de repositórios privados, respeitando permissões
 - A estrutura do script foi pensada para permitir manutenção futura por outros devs, com configuração simples via `config.py`
 
 ## Resultado entregue
@@ -39,8 +39,8 @@ O feedback do time foi imediato: a automação reduziu drasticamente o tempo de 
 
 ## Aprendizados
 
-- A manipulação de estruturas como “projetos” e nomes inconsistentes exigiu decisões práticas e tratamento lógico refinado
-- A entrega demonstrou o impacto direto de uma automação sob medida em cenários de urgência, escala e criticidade operacional
+A manipulação de estruturas como “projetos” e nomes inconsistentes exigiu decisões práticas e tratamento lógico refinado.  
+A entrega demonstrou o impacto direto de uma automação sob medida em cenários de urgência, escala e criticidade operacional.
 
 Se eu fosse refazer hoje, com base no que aprendi durante e após a entrega:
 
@@ -48,12 +48,32 @@ Se eu fosse refazer hoje, com base no que aprendi durante e após a entrega:
 - Adicionaria geração de logs persistentes para rastreabilidade pós-migração
 - Criaria testes unitários básicos para as funções de autenticação, filtro e paginação
 - Melhoraria a UX do terminal com feedback visual mais estruturado, como progresso e sumário ao final
-- Validaria pré-requisitos como existência do `gh` CLI e conectividade com as APIs antes da execução
+- Validaria pré-requisitos como existência do gh CLI e conectividade com as APIs antes da execução
+
+## Como usar
+
+1. Renomeie o arquivo `config_example.py` para `config.py`
+2. Preencha com suas credenciais reais:
+   - GitHub username
+   - Bitbucket username e app password
+   - Workspace e palavra-chave de filtro
+
+3. Certifique-se de que o GitHub CLI (`gh`) esteja instalado e autenticado:
+   ```bash
+   gh auth login
+   ```
+
+4. Execute o script principal:
+   ```bash
+   python3 migrate.py
+   ```
+
+> O script irá buscar todos os repositórios do Bitbucket com base no filtro configurado, criar os equivalentes no GitHub e clonar via SSH com preservação completa de histórico.
 
 ## Repositório com código
 
-[https://github.com/jeffersonvalente/bitbucket-to-github-migration](https://github.com/jeffersonvalente/bitbucket-to-github-migration)
+[github.com/jeffersonvalente/bitbucket-to-github-migration](https://github.com/jeffersonvalente/bitbucket-to-github-migration)
 
 ## Contato
 
-[LinkedIn](https://www.linkedin.com/in/jefferson-hoy-valente/)
+[LinkedIn — Jefferson Hoy Valente](https://www.linkedin.com/in/jefferson-hoy-valente/)
