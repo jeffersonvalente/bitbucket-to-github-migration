@@ -70,10 +70,6 @@ Se eu fosse refazer hoje, com base no que aprendi durante e após a entrega:
 
 > O script irá buscar todos os repositórios do Bitbucket com base no filtro configurado, criar os equivalentes no GitHub e clonar via SSH com preservação completa de histórico.
 
-## Repositório com código
-
-[github.com/jeffersonvalente/bitbucket-to-github-migration](https://github.com/jeffersonvalente/bitbucket-to-github-migration)
-
 ## Contato
 
 [LinkedIn — Jefferson Hoy Valente](https://www.linkedin.com/in/jefferson-hoy-valente/)
